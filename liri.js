@@ -1,20 +1,25 @@
 /*
 
-Instructions
+Instructions:
 $ node liri.js movie-this Forrest Gump
-$ node liri.js spofity-this-song let it be
+$ node liri.js spofity-this-song Like a Rolling Stone
+$ node liri.js do-what-it-says
 
 
 */
-
-// ================ THE REQUESTS ==================
-
-
+//=============================================================
+// ================ REQUIRE ===================================
+//=============================================================
 var keys = require('./keys.js');
 var request = require('request');
+var latestTweets = require('latest-tweets')
 var fs = require('fs');
 
-// ================ THE KEYS ==================
+
+
+//=============================================================
+// ================ THE KEYS ==================================
+//=============================================================
 
 //get Twitter keys from keys.js
 var twitterConsumerKey = keys.twitterKeys.consumer_key;
@@ -29,8 +34,29 @@ console.log(twitterAccessTokenSecret)
 */
 
 
+//=============================================================
+// ================ CODE FOR TWITTER ==========================
+//=============================================================
 
-// ================ CODE FOR MOVIES ===========
+//note npm install latest-tweets does not require deez crazy keys
+
+if (process.argv[2] === 'my-tweets'){
+    latestTweets('_leondo_', function (err, tweets) {
+        for (var i = 0; i < 20; i++){
+            console.log(i+1)
+            console.log(tweets[i].content)
+            console.log(tweets[i].date)
+            console.log('\n')
+        }//for
+    })//latestTweets
+}//if
+
+
+
+//=============================================================
+// ================ CODE FOR MOVIES ===========================
+//=============================================================
+
 var movieName = '';
 
 //if user types movie has multiple words...
@@ -77,25 +103,27 @@ function consoleMovieInfo(){
 
 
 
+//=============================================================
+// ================ CODE FOR SPOTIFY ==========================
+//=============================================================
 
-// ================ CODE FOR SPOTIFY ==================
 var trackName = '';
 
 // https://api.spotify.com/v1/search?q=starboy&type=track
 
-//if track has multiple words
+//if track has multiple words...
 if (process.argv[2] === 'spofity-this-song' && process.argv[4] !== undefined){
+    //...then put them together
     for (var i = 3; i < process.argv.length; i++){
         trackName = trackName + process.argv[i] + "%20";
     }
-    consoleSpotifyInfo()
+    consoleSpotifyInfo(trackName)
 }
 
 if (process.argv[2] === 'spofity-this-song' && process.argv[4] === undefined){
     trackName = process.argv[3]
-    consoleSpotifyInfo()
+    consoleSpotifyInfo(trackName)
 }
-
 
 
 function consoleSpotifyInfo(trackName){
@@ -131,8 +159,9 @@ function consoleSpotifyInfo(trackName){
 
 
 
-
+//=============================================================
 // ================ CODE FOR DO-WHAT-IT-SAYS ==================
+//=============================================================
 
 if (process.argv[2] === 'do-what-it-says'){
     fs.readFile('random.txt', 'utf8', function(error, data){
