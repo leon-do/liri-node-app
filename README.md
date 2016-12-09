@@ -9,7 +9,7 @@
 
 3. type any of the commands below:
 
-`$ node liri.js latest-tweets` (tweets from \_leondo\_)
+`$ node liri.js latest-tweets` tweets from \_leondo\_
 
 `$ node liri.js movie-this Forrest Gump`
 
