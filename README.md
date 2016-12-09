@@ -8,7 +8,11 @@
 2. `$ cd liri-node-app`
 
 3. type any of the commands below:
+
 `$ node liri.js latest-tweets`
+
 `$ node liri.js movie-this Forrest Gump`
+
 `$ node liri.js spofity-this-song Like a Rolling Stone`
+
 `$ node liri.js do-what-it-says`
