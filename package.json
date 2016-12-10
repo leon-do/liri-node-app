@@ -1,10 +1,11 @@
 {
   "name": "liri",
   "version": "1.0.0",
-  "description": "it's like siri but worse",
+  "description": "<h1> learning node.js </h1>",
   "main": "keys.js",
   "dependencies": {
     "latest-tweets": "^1.0.2",
+    "open": "^0.0.5",
     "request": "^2.79.0"
   },
   "devDependencies": {},

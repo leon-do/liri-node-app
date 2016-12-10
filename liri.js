@@ -14,6 +14,7 @@ $ node liri.js do-what-it-says
 var keys = require('./keys.js');
 var request = require('request');
 var latestTweets = require('latest-tweets')
+var open = require('open');
 var fs = require('fs');
 
 
@@ -149,6 +150,8 @@ function consoleSpotifyInfo(trackName){
         //album
         console.log(JSON.parse(body).tracks.items[0].album.name)
 
+        //open browser
+        open(JSON.parse(body).tracks.items[0].external_urls.spotify);
         }
 
     });//request
