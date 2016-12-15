@@ -11,29 +11,10 @@ $ node liri.js do-what-it-says
 //=============================================================
 // ================ REQUIRE ===================================
 //=============================================================
-var keys = require('./keys.js');
 var request = require('request');
 var latestTweets = require('latest-tweets')
 var open = require('open');
 var fs = require('fs');
-
-
-
-//=============================================================
-// ================ THE KEYS ==================================
-//=============================================================
-
-//get Twitter keys from keys.js
-var twitterConsumerKey = keys.twitterKeys.consumer_key;
-var twitterConsumerSecret = keys.twitterKeys.consumer_secret;
-var twitterAccessTokenKey = keys.twitterKeys.access_token_key;
-var twitterAccessTokenSecret = keys.twitterKeys.access_token_secret;
-/* double check if twitter keys work
-console.log(twitterConsumerKey)
-console.log(twitterConsumerSecret)
-console.log(twitterAccessTokenKey)
-console.log(twitterAccessTokenSecret)
-*/
 
 
 //=============================================================
@@ -61,8 +42,14 @@ if (process.argv[2] === 'my-tweets'){
 
 var movieName = '';
 
-//if user types movie has multiple words...
-if (process.argv[2] === 'movie-this' && process.argv[4] !== undefined){
+// if user types movie-this ____ (without a movie), then they're a jerk
+if (process.argv[2] === 'movie-this' && process.argv[3] === undefined){
+    movieName = "Mr+Nobody"
+    consoleMovieInfo();
+}
+
+//if user types movie with multiple words...
+ else if (process.argv[2] === 'movie-this' && process.argv[4] !== undefined){
     //then put a %20 in between each argument
     for (var i=3; i < process.argv.length; i++){
         movieName = movieName + process.argv[i] + "%20";
@@ -72,7 +59,7 @@ if (process.argv[2] === 'movie-this' && process.argv[4] !== undefined){
 }
 
 //if movie is one word
-if (process.argv[2] === 'movie-this' && process.argv[4] === undefined) {
+else if (process.argv[2] === 'movie-this' && process.argv[4] === undefined) {
 
     movieName = process.argv[3];
     consoleMovieInfo()
